@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# this sctipt displays time
+
+hour=0
+
+while [ $hour -lt 13 ];
+do
+	minutes=1
+	echo "Hour: "$hour
+	while [ $minutes -lt 60 ];
+	do
+		echo $minutes
+		((minutes++))
+	done
+	((hour++))
+done
