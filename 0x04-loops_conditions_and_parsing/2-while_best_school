@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# The scrit displays "best school" 10 times using a while loop
+
+times=10
+while [ $times -gt 0 ];
+do
+	echo 'Best School'
+	((times--))
+done
