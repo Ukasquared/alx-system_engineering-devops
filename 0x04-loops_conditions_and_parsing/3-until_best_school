@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script will print "best school" using the until loop.
+
+count=10
+until [ $count -eq 0 ];
+do
+	echo 'Best School'
+	((count--))
+done
