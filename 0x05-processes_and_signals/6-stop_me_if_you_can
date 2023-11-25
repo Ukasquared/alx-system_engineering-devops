@@ -3,4 +3,4 @@
 
 file="4-to_infinity_and_beyond"
 
-pkill -f $file
+pkill -f "$file"
