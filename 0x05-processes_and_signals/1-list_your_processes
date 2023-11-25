@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# display processes for all user in an oriented format
+
+ps -u
