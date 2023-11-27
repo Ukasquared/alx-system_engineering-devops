@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# To infinity and beyond indefinitely, With a sleep 2 in between each iteration
+# I am invincible!!! when receiving a SIGTERM signal
+
+
+function handle_sig
+{
+	echo  'I am invincible!!!'
+}
+
+trap handle_sig SIGTERM
+
+while true;
+do
+	echo 'To infinity and beyond'
+	 sleep 2
+done

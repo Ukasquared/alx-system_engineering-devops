@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# kills the process 7-highlander
+
+file="7-highlander"
+
+pkill -9 -f "$file"
