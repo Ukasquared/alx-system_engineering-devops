@@ -7,9 +7,9 @@ then
     exit 1
 fi
 
-PATH="$1"
+PATH_OF_FILE="$1"
 IP="$2"
 USERNAME="$3"
-SSH_KEY="$4"
+SSH_KEYS="$4"
 
-scp -o StrictHostKeyChecking=no -i "$SSH_KEYS" "$PATH" "$USERNAME"@"$IP":~/
+scp -o StrictHostKeyChecking=no -i "$SSH_KEYS" "$PATH_OF_FILE" "$USERNAME"@"$IP":~/
