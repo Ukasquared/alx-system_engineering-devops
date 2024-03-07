@@ -4,8 +4,8 @@ sudo apt-get -y update
 sudo apt-get -y install nginx
 config="/etc/nginx/sites-available/default"
 sudo sh -c "echo 'Hello World!' > /var/www/html/index.nginx-debian.html"
-sudo sed -i '/^}$/i \ \n\tlocation \/redirect_me {return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;}' $config
-sudo sed -i '/^}$/i \ \n\tlocation @404 {return 404 "Ceci n'\''est pas une page\\n";}' $config
-sudo sed -i 's/=404/@404/g' $config
+sudo sed -i 's#server_name _;#server_name _;\n\n\tlocation = /redirect_me {\n\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}#g' $config
+echo "Ceci n'est pas une page - 404" | sudo tee /var/www/html/custom_404.html > /dev/null
+sudo sed -i '/^\slocation.*/i \       error_page 404 /custom_404.html;' $config
 sudo sed -i "0,/location \/ {/s/location \/ {/&\n\t\tadd_header X-Served-By '$HOSTNAME';/" $config
 sudo service nginx restart
