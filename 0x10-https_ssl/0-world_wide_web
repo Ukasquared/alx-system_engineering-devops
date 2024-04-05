@@ -1,0 +1,2 @@
+echo 'web-01.judithsolutions.tech. 0  IN      A       100.27.13.180' | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print parts[1], parts[2], $3, $5}'
+
