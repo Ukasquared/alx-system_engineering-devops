@@ -2,5 +2,5 @@
 #configure haproxy
 sudo apt update
 sudo apt install haproxy -y
-sudo sh -c 'echo "\nlisten myserver\n\tbind *:80\n\tbalance roundrobin\n\tserver server1 35.175.132.77:80 check\n\tserver server2 100.27.11.78:80 check\n" >> /etc/haproxy/haproxy.cfg'
-sudo service haproxy restart
+sudo sh -c 'echo "\nfrontend myfrontend\n\tmode http\n\tbind :80\n\tdefault_backend web_servers\n\nbackend web_servers\n\tmode http\n\tbalance roundrobin\n\tserver server1 100.27.13.180:80 check\n\tserver server2 100.26.10.219:80 check\n" >> /etc/haproxy/haproxy.cfg'
+sudo service haproxy start
