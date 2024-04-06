@@ -6,14 +6,13 @@ if [ -n "$2" ]; then
 	sub_domain="$2"
 fi
 query_web () {
-	local var1 var2 var3 var4 var5
 	if [ -z "$sub_domain" ] && [ -n "$domain" ]; then
-		dig 'www.'$domain | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
-		dig 'lb-01.'$domain | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
-		dig 'web-01.'$domain | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
-		dig 'web-02.'$domain | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "www.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "lb-01.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "web-01.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "web-02.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
 	else
-		dig $sub_domain'.'$domain | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "$sub_domain.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
 	fi
 }
 
