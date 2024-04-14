@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
-# load balancer configuration
 
-dig_server(){
-	if [ '$#' -eq 3]; then
-		dig "$2"."$1" |  
+# bash script to print specific string
+
+domain="$1"
+if [ -n "$2" ]; then
+	sub_domain="$2"
+fi
+query_web () {
+	if [ -z "$sub_domain" ] && [ -n "$domain" ]; then
+		dig "www.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "lb-01.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "web-01.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+		dig "web-02.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+	else
+		dig "$sub_domain.$domain" | awk '/^;; ANSWER SECTION:/{getline; split($1, parts, "."); print "The subdomain " parts[1] " is a", $4, "record and points to", $5}'
+	fi
 }
+
+query_web
