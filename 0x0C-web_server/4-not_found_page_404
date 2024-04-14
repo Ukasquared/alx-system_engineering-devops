@@ -3,7 +3,7 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
-sudo sed 's#server_name _;#server_name _;\n\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}#g' /etc/nginx/sites-available/default
-string_to_replace="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+sudo sed -i 's#server_name _;#server_name _;\n\n\tlocation = /redirect_me {\n\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}#g' /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page - 404" | sudo tee /var/www/html/custom_404.html > /dev/null
+sudo sed -i '/^\slocation.*/i\terror_page 404 /custom_404.html;' /etc/nginx/sites-available/default
 sudo service nginx start

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Creates the file /var/run/myscript.pid containing its PID and deletes it
+
+touch "/var/run/myscript.pid"
+pid_file = "/var/run/myscript.pid"
+$file = $$
+echo "$file" > "$pid_file"
+
+handle_sigterm()
+{
+	echo 'I hate the kill command'
+	rm "$pid_file"
+	exit 0
+}
+
+handle_sigint()
+{
+	echo 'Y U no love me?!'
+}
+
+handle_sigquit()
+{
+	rm "$pid_file"
+}
+trap handle_sigterm SIGTERM
+trap handle_sigint SIGINT
+trap handle_
