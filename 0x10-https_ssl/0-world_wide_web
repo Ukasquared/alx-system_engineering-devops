@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# load balancer configuration
+
+dig_server(){
+	if [ '$#' -eq 3]; then
+		dig "$2"."$1" |  
+}
