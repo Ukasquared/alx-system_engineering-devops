@@ -2,5 +2,4 @@
 # show user identity
 
 username="$1"
-su $username
-whoami
+su $username --shell=/bin/bash -c "whoami"
