@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 # show user identity
-
 username="$1"
 su $username --shell=/bin/bash -c "whoami"
