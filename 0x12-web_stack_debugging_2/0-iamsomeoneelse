@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 # show user identity
-username="$1"
-su $username --shell=/bin/bash -c "whoami"
+su "$1" --shell=/bin/bash -c "whoami"
