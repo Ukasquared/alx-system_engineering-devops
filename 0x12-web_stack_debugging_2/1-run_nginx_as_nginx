@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # configure nginx as a system account
-apt update
-apt install nginx
-useradd --system nginx
-chown -R nginx:nginx /var/log/nginx
-chown -R nginx:nginx /var/lib/nginx
-sed -i '1s/.*/user nginx;/' /etc/nginx/nginx.conf
-sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
-sudo -u nginx service nginx restart
+sudo apt update
+sudo apt-get install nginx -y
+sudo useradd --system nginx
+sudo chown -R nginx:nginx /var/log/nginx
+sudo chown -R nginx:nginx /var/lib/nginx
+sudo sed -i '1s/.*/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
+sudo service nginx restart
