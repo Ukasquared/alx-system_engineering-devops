@@ -1,14 +1,24 @@
 #!/usr/bin/python3
 """ fetching API"""
-from requests import get
-from sys import argv
+import requests
+import sys
 
 if __name__ == '__main__':
-    user_id = {'id': argv[1]}
-    id_todo = {'userId': argv[1]}
+    user_id = sys.argv[1]
+    url_str = 'https://jsonplaceholder.typicode.com/'
+    user_str = '{}users/{}'.format(url_str, user_id)
+    todos_str = '{}todos?userId={}'.format(url_str, user_id)
     employee_str = "Employee {} is done with tasks"
-    res = get('https://jsonplaceholder.typicode.com/users'\
-        , params=user_id)
-    todo_res = get('https://jsonplaceholder.typicode.com/todos'\
-        , params=id_todo)
-    
+
+    res = requests.get(user_str)
+    print(employee_str.format(res.json().get('name')), end="")
+
+    res = requests.get(todos_str)
+    tasks = []
+    for task in res.json():
+        if task.get('completed') is True:
+            tasks.append(task)
+
+    print("({}/{}):".format(len(tasks), len(res.json())))
+    for task in tasks:
+        print("\t {}".format(task.get("title")))
