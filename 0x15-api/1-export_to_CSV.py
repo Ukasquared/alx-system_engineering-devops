@@ -16,12 +16,13 @@ if __name__ == '__main__':
     # list of all the tasks
     todo_list = requests.get(todo_str.format(url, user_id))
     tasks = []
-    for task_info in todo_list.json():
+    todo_json = todo_list.json()
+    for task_info in todo_json:
         tasks.append([user_id, user_name, task_info.get('completed'),
                       task_info.get('title')])
     with open("{}.csv".format(user_id),
               'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=',', quotechar='"',
-                                quoting=csv.QUOTE_MINIMAL)
+                                quoting=csv.QUOTE_ALL)
         for task in tasks:
             csv_writer.writerow(task)
