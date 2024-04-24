@@ -10,27 +10,21 @@ import sys
 
 if __name__ == "__main__":
     user_id = sys.argv[1]
-    url_str = 'https://jsonplaceholder.typicode.com/users/{}'
-    todos_url = 'https://jsonplaceholder.typicode.com/todos'
-    user = requests.get(url_str.format(user_id))
-
-    name = user.json().get('username')
-    todos = requests.get(todos_url)
-
-    todos_users = {}
+    url = 'https://jsonplaceholder.typicode.com/'
+    user_str = '{}/users/{}'
+    todo_str = '{}/todos?userId={}'
+    # fetch response code
+    user_res = requests.get(user_str.format(url, user_id))
+    # get response body
+    username = user_res.json().get('username')
+    todo_res = requests.get(todo_str.format(url, user_id))
+    todo_str = todo_res.json()
     tasks = []
-
-    for task in todos.json():
-        if task.get('userId') == int(user_id):
-            task_dict = {
-                    "task": task.get('title'),
-                    "completed": task.get('completed'),
-                    "username": user.json().get('username')
-                    }
-            tasks.append(task_dict)
-        todos_users[user_id] = tasks
-
-    file = user_id + '.json'
-
-    with open(file, mode="w") as user_file:
-        json.dump(todos_users, user_file)
+    for values in todo_str:
+        tasks.append({"task": values.get('title'),
+                      "completed": values.get('completed'),
+                      "username": username})
+    user_info = {}
+    user_info[user_id] = tasks
+    with open("{}.json".format(user_id), 'w') as f:
+        json.dump(user_info, f)

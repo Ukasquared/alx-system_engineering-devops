@@ -6,14 +6,14 @@ import sys
 if __name__ == '__main__':
     user_id = sys.argv[1]
     url_str = 'https://jsonplaceholder.typicode.com/'
-    user_str = '{}users/{}'.format(url_str, user_id)
-    todos_str = '{}todos?userId={}'.format(url_str, user_id)
+    user_res = '{}users/{}'.format(url_str, user_id)
+    todos_res = '{}todos?userId={}'.format(url_str, user_id)
     employee_str = "Employee {} is done with tasks"
 
-    res = requests.get(user_str)
+    res = requests.get(user_res)
     print(employee_str.format(res.json().get('name')), end="")
 
-    res = requests.get(todos_str)
+    res_todo = requests.get(todos_str)
     tasks = []
     for task in res.json():
         if task.get('completed') is True:
