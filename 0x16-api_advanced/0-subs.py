@@ -5,6 +5,7 @@ a specific subreddit
 """
 import requests
 
+
 def number_of_subscribers(subreddit):
     """ retrieve number of
     for a particular subreddit
@@ -14,11 +15,9 @@ def number_of_subscribers(subreddit):
                Chrome/124.0.0.0 Safari/537.36"}
     end_point = "r/{}/about.json".format(subreddit)
     url = "https://www.reddit.com/{}".format(end_point)
-    #try:
-    response = requests.get(url, headers=header)
+    # try:
+    response = requests.get(url, headers=header, allow_redirects=False)
     to_json = response.json()
     data = to_json.get("data")
     subscribers = data.get("subscribers")
     return subscribers
-   # except Exception:
-       # return 0
